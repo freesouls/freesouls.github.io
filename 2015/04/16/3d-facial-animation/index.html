@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.0 -->
+    <script>
+        window.materialVersion = "1.5.0"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Title -->
+    
+    <title>
+        
+            A Survey of 3D Facial Animation | 
+        
+        Freesouls
+    </title>
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="Binbin Xu">
+    <meta name="description" itemprop="description" content="Binbin Xu
+Abstract:3D Facial Animation is a hot area in Computer Vision. There are two main tasks of facial animation, which are techniques to generate animation data and methods to retarget such data to a character while retains the facial expressions as detailed as possible. The emergence of depth cameras, such as Microsoft Kinect has spawned new interest in real-time 3D facial capturing and some related field. In this survey I will focus on the recent technology development in 3D facial Animation using such RGB-D cameras and ordinary cameras just with RGB data.">
+    <meta name="keywords" content=",3D Facial Animation,Face Alignment,Blendshape,PCA model">
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(window.oldVersion){var remove=window.oldVersion.reduce(function(p,c){return p||data.indexOf("/*"+c+"*/")!==-1},false);if(remove){lsloader.removeLS(key)}}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload,isJs){if(typeof cssonload==="boolean"){isJs=cssonload;cssonload=undefined}isJs=isJs||false;cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}code=code.split(versionString)[1];if(isJs){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload,isJs)}};lsloader.requestResource=function(name,path,cssonload,isJs){var that=this;if(isJs){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else{this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Freesouls">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://freesouls.github.io">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="A Survey of 3D Facial Animation | Freesouls">
+    <meta property="og:image" content="http://freesouls.github.io/img/favicon.png" />
+    <meta property="og:description" content="Binbin Xu
+Abstract:3D Facial Animation is a hot area in Computer Vision. There are two main tasks of facial animation, which are techniques to generate animation data and methods to retarget such data to a character while retains the facial expressions as detailed as possible. The emergence of depth cameras, such as Microsoft Kinect has spawned new interest in real-time 3D facial capturing and some related field. In this survey I will focus on the recent technology development in 3D facial Animation using such RGB-D cameras and ordinary cameras just with RGB data.">
+    <meta property="og:article:tag" content="3D Facial Animation"> <meta property="og:article:tag" content="Face Alignment"> <meta property="og:article:tag" content="Blendshape"> <meta property="og:article:tag" content="PCA model"> 
+
+    
+        <meta property="article:published_time" content="Thu Apr 16 2015 19:51:01 GMT+0800" />
+        <meta property="article:modified_time" content="Thu Jan 21 2016 21:58:49 GMT+0800" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="A Survey of 3D Facial Animation | Freesouls">
+    <meta name="twitter:description" content="Binbin Xu
+Abstract:3D Facial Animation is a hot area in Computer Vision. There are two main tasks of facial animation, which are techniques to generate animation data and methods to retarget such data to a character while retains the facial expressions as detailed as possible. The emergence of depth cameras, such as Microsoft Kinect has spawned new interest in real-time 3D facial capturing and some related field. In this survey I will focus on the recent technology development in 3D facial Animation using such RGB-D cameras and ordinary cameras just with RGB data.">
+    <meta name="twitter:image" content="http://freesouls.github.io/img/favicon.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="http://freesouls.github.io" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://freesouls.github.io/2015/04/16/3d-facial-animation/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://freesouls.github.io/2015/04/16/3d-facial-animation/index.html",
+    "headline": "A Survey of 3D Facial Animation",
+    "datePublished": "Thu Apr 16 2015 19:51:01 GMT+0800",
+    "dateModified": "Thu Jan 21 2016 21:58:49 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "Binbin Xu",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/imgs/me.jpg"
+        },
+        "description": "Freesoul's Mind Palace"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Freesouls",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",3D Facial Animation,Face Alignment,Blendshape,PCA model",
+    "description": "Binbin Xu
+Abstract:3D Facial Animation is a hot area in Computer Vision. There are two main tasks of facial animation, which are techniques to generate animation data and methods to retarget such data to a character while retains the facial expressions as detailed as possible. The emergence of depth cameras, such as Microsoft Kinect has spawned new interest in real-time 3D facial capturing and some related field. In this survey I will focus on the recent technology development in 3D facial Animation using such RGB-D cameras and ordinary cameras just with RGB data.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-56843271-1', 'auto');ga('send', 'pageview');
+</script>
+    
+    
+    
+
+    <!-- Custom Head --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Abstract"><span class="post-toc-number">1.</span> <span class="post-toc-text">Abstract:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Key-words-RGB-D-Blendshape-Face-Alignment-3D-Facial-Animation-PCA-model"><span class="post-toc-number">2.</span> <span class="post-toc-text">Key words: RGB-D, Blendshape, Face Alignment, 3D Facial Animation, PCA-model</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-Facial-Performance-Capture"><span class="post-toc-number"></span> <span class="post-toc-text">1.Facial Performance Capture</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-Blendshape-Model"><span class="post-toc-number"></span> <span class="post-toc-text">2. Blendshape Model</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-Face-Alignment"><span class="post-toc-number"></span> <span class="post-toc-text">3. Face Alignment</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-PCA-Model"><span class="post-toc-number"></span> <span class="post-toc-text">4. PCA Model</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-ICP-Algorithm"><span class="post-toc-number"></span> <span class="post-toc-text">5. ICP Algorithm</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-Workflows-of-Recent-State-of-the-art-3D-facial-Animation-Systems"><span class="post-toc-number"></span> <span class="post-toc-text">6. Workflows of Recent State-of-the-art 3D facial Animation Systems</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-My-thoughts-and-work"><span class="post-toc-number"></span> <span class="post-toc-text">7. My thoughts and work</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-Available-Consumer-level-3D-Facial-Animation-Products"><span class="post-toc-number"></span> <span class="post-toc-text">8. Available Consumer-level 3D Facial Animation Products</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-References"><span class="post-toc-number"></span> <span class="post-toc-text">9. References</span></a>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                A Survey of 3D Facial Animation
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/imgs/me.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Binbin Xu</strong>
+        <span>4月 16, 2015</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/3D-Facial-Animation/">3D Facial Animation</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Blendshape/">Blendshape</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Face-Alignment/">Face Alignment</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/PCA-model/">PCA model</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=A Survey of 3D Facial Animation&url=http://freesouls.github.io/2015/04/16/3d-facial-animation/index.html&pic=http://freesouls.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=A Survey of 3D Facial Animation&url=http://freesouls.github.io/2015/04/16/3d-facial-animation/index.html&via=Binbin Xu" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://freesouls.github.io/2015/04/16/3d-facial-animation/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://freesouls.github.io/2015/04/16/3d-facial-animation/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>Binbin Xu</p>
+<h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract:"></a>Abstract:</h4><p>3D Facial Animation is a hot area in Computer Vision. There are two main tasks of facial animation, which are techniques to generate animation data and methods to retarget such data to a character while retains the facial expressions as detailed as possible. The emergence of depth cameras, such as Microsoft Kinect has spawned new interest in real-time 3D facial capturing and some related field. In this survey I will focus on the recent technology development in 3D facial Animation using such RGB-D cameras and ordinary cameras just with RGB data.</p>
+<a id="more"></a>
+<h4 id="Key-words-RGB-D-Blendshape-Face-Alignment-3D-Facial-Animation-PCA-model"><a href="#Key-words-RGB-D-Blendshape-Face-Alignment-3D-Facial-Animation-PCA-model" class="headerlink" title="Key words: RGB-D, Blendshape, Face Alignment, 3D Facial Animation, PCA-model"></a>Key words: RGB-D, Blendshape, Face Alignment, 3D Facial Animation, PCA-model</h4><p><img src="/imgs/3d_1.jpg" alt=""><br>3D Facial Animation is a hot area in Computer Vision. There are two main tasks of facial animation, which are techniques to generate animation data and methods to retarget such data to a character while retains the facial expressions as detailed as possible. Facial Animation is crucial to Film and game production, for example there are a lot of Hollywood movies that use such technologies.</p>
+<h3 id="1-Facial-Performance-Capture"><a href="#1-Facial-Performance-Capture" class="headerlink" title="1.Facial Performance Capture"></a>1.Facial Performance Capture</h3><hr>
+<p>In real application especially in the field of film and game production they use special instrument to capture facial performance. Marker-based systems(for example [1][2]) are widely used. Some uses camera arrays or multi-view systems(for example [3]) to achieve the goal, while [4][5] adopt structured light scanners. The above techniques, however, require specialized hardware and need sophisticated setups and careful calibration, further the expensive equipment make it unsuitable for consumer level applications.<br>The emergence of depth cameras, such as Microsoft Kinect, Asus Xtion and Intel Real-sense (most of these cameras based on the structured light tech) and so on, has spawned new interest in real-time 3D facial capturing and some related field.<br>Weise et al[6] start the area just using commercial cameras to do 3D facial Animation in 2011, they use Kinect with RGB-D data. While Cao et al[7][8] just use ordinary web-cameras to do 3D facial Animation based on Weise and other researchers work. In this survey I will focus on the recent technology development in 3D facial Animation using such RGB-D cameras and cameras just with RGB data.</p>
+<h3 id="2-Blendshape-Model"><a href="#2-Blendshape-Model" class="headerlink" title="2. Blendshape Model"></a>2. Blendshape Model</h3><hr>
+<p><img src="/imgs/3d_2.jpg" alt=""><br>Blendshape Model is based on the FACS(Facial Action Coding System)[9]. As the above picture presents, An Blendshape Model $(B=[B_0,B_1,…,B_n], n=46)$ contains the user’s neutral face mesh plus 46 blendshapes (number of blendshapes can be defined according to specific tasks) based on the user’s different expressions. With these blendshapes, a user’s facial expression can represented as $B = B_0+ \sum {a_i}*{B_i}$, where $(a=[a_1,a_2,…,a_n], n=46)$ is a vector of expression coefficients.<br>There are some available dataset. FaceWarehouse[10] is a database of 3D facial expressions for visual computing applications. Using a Kinect RGBD camera, they captured 150 individuals aged 7-80 from various ethnic backgrounds. EURECOM Kinect Face Dataset has images of different facial expressions in different lighting and occlusion conditions to serve various research purposes.</p>
+<h3 id="3-Face-Alignment"><a href="#3-Face-Alignment" class="headerlink" title="3. Face Alignment"></a>3. Face Alignment</h3><hr>
+<p><img src="/imgs/3d_3.jpg" alt=""><br>On a face mesh is a set of landmark vertices, which correspond to certain facial features such as eye corners, nose tip and other important points as the above picture illustrates. These feature landmarks are essential in mapping the expression from the users to digital avatars especially useful when using cameras only with RGB data.<br>Face Alignment is very popular research field. In recent researches, using Deep Learning to predict the landmarks [11] become a trend (Facebook AI Research, face++ etc. uses this kind of technology). But it cannot satisfy the real-time requirement in this 3D facial Animation field because Deep Convolution Neural Networks has very large parameters and often need high performance GPU devices.<br>On the other hand, Active Appearance Models [12] solves the face alignment problem by jointly modeling holistic appearance a shape. Constrained Local Model [13][14] learns a set of local detectors or regressors and constrains them using various models. Most papers adopt multiple stages regression method called Cascade Pose Regression (CPR), with an estimated Pose at the previous stage as the next stage’s input, then output the refined pose estimation at current stage. The current state-of-the-art is [15] which at each stage first using random forest learns a set of local binary features and then using a global linear regression to get a global generalization, the estimated parameters can refined stage by stage. This algorithm can achieve 3000+ fps on a normal computer and 300+ fps on a mobile phone when doing face alignment.</p>
+<h3 id="4-PCA-Model"><a href="#4-PCA-Model" class="headerlink" title="4. PCA Model"></a>4. PCA Model</h3><hr>
+<p>Principal component analysis (PCA) is a statistical procedure that uses an orthogonal transformation to convert a set of observations of possibly correlated variables into a set of values of linearly uncorrelated variables called principal components. And PCA can be used to do dimension reduction. In 2D face research, the principal components are called eigenfaces, any face can be represented as a linear combination of those eigenfaces. And it holds true for 3D face, the PCA model comes from a morphable model proposed in [16]. Suppose there a set of 3D faces, and $m$ is the mean face and $P=[p_1,p_2,…,p_l]$ is the first $l$ PCA eigenvectors. With such an orthonormal basis, a user’s neutral expression can be approximated as $B_0=m+Py$ with $y$ as linear coefficients.</p>
+<h3 id="5-ICP-Algorithm"><a href="#5-ICP-Algorithm" class="headerlink" title="5. ICP Algorithm"></a>5. ICP Algorithm</h3><hr>
+<p>Since the raw depth data from Kinect has big noise and is incomplete. Iterative Closest Point (ICP) is an algorithm employed to minimize the difference between two clouds of points. ICP is often used to reconstruct 2D or 3D surfaces from different scans, to localize robots and achieve optimal path planning, to co-register bone models, etc. There are many variant ICP methods.</p>
+<h3 id="6-Workflows-of-Recent-State-of-the-art-3D-facial-Animation-Systems"><a href="#6-Workflows-of-Recent-State-of-the-art-3D-facial-Animation-Systems" class="headerlink" title="6. Workflows of Recent State-of-the-art 3D facial Animation Systems"></a>6. Workflows of Recent State-of-the-art 3D facial Animation Systems</h3><hr>
+<p>No matter what the specific methods are used in recent facial Animation systems, the main workflow are similar. And one key tech is they all adopt Blendshape Model.<br>Let’s take Weise et al[6] for example, see the work pipeline below.<br><img src="/imgs/3d_4.jpg" alt=""><br>First they aggregate multiple input depth map frames using a rigid alignment based on the fast iterative closest point method (ICP) to obtain a merged 3D point cloud with better coverage of the face. The blendshape weights that drive the digital avatar are estimated to obtain non-rigid facial detailed by solving a MAP problem in which a probabilistic animation prior learned from existing blendshape is used. Temporal coherence is exploited by considering a window of consecutive frames.<br>Paper [17] is based on [6], the adopt the PCA model, using the PCA model to obtain rigid neutral expression and using non-rigid ICP algorithm[18] to refine the details of non-rigid part. Then they use this neutral blenshape to obtain 23 other blendshapes using the deformation transfer algorithms in [19].<br><span>$B_i={T_i}*{B_0},\;T_i\;is\;the\;transfer\;matrix.$</span><!-- Has MathJax --><br>When in real-time tracking, the adaptive PCA model will refine the blendshapes by using a Laplacian deformation algorithm along with 2D features and depth data.<br>Paper [20] is similar to [17], but they use corrective deformation fields to obtain the user-specific details. Per-vertex displacements are modeled using a spectral representation defined by the k last eigenvectors $E=[e_1,e_2,…,e_k]$ of the graph Laplacian matrix L computed on the 3D face mesh. A smooth deformation field can then be defined as a linear combination , where z is the spectral coefficients. So<br><span>$B_0=m+Py+Ez_0,\;\; B_i=T_i*B_0+Ez_i$</span><!-- Has MathJax --><br>By adding rotation matrix $R$ and translation vector $t$ at each frame, the PCA model is refined by aggregation of history of observed expression data. The blendshapes weights are estimated by minimizing an energy function. This system requires no user-specific training or calibration, or any other form of manual assistance.<br><img src="/imgs/3d_5.jpg" alt=""><br>Instead of using RGB-D cameras, Paper [8] just uses an ordinary camera only with RGB data. In the above picture, at first the user has to take some pictures of different poses. Then landmarks of each image will be labeled out by a Face Alignment program and can be correct manually if necessary. User-specific Blendshapes are then generated by mapping the 2D landmarks to 3D landmarks using a bilinear face model (details should be refer to [8]). All of the input images and their 3D facial shapes are then used to train a user specific 3D shape regressor. With this regressor the 3D facial shape for each video frame can be computed in real time. The regressor adopts two level boosted regression approach to refine the estimated parameters for each in coming frame. And the coefficients of the blendshapes are solved by minimizing an energy function which is added with an animation prior (similar to [6]) to enhance temporal coherence. And the model needs camera calibration.<br><img src="/imgs/3d_6.jpg" alt=""><br>Paper [9] is based on [8], it is a calibration free approach and the user does not have to take some pictures. The workflow is depicted as above. The input video frame I is first sent into a CPR regressor, formulated as a function mapping a guessed shape vector $P(in)$ to a regressed shape $P(out)$, the regressor output is then post-processed to improve the temporal coherence and clamp expression coefficients. The post-processed output is optionally sent to an iterative optimization procedure to update the camera matrix and other parameters. The optimized parameters are sent back to the CPR regressor in a feedback loop. The final shape vector is transferred to drive the digital avatars.</p>
+<h3 id="7-My-thoughts-and-work"><a href="#7-My-thoughts-and-work" class="headerlink" title="7. My thoughts and work"></a>7. My thoughts and work</h3><hr>
+<p>In the above 5 systems, paper [6] and [8] need user-specific training or calibration, while the other 3 are calibration free. And [6][17][20] use RGB-D cameras, while [8] [9] just use ordinary cameras only with RGB data. Because [6] starts this area, so it has many limitations, animation prior need large training data, the resolution of the acquisition system limits the amount of geometric and motion details and need manual markup of lip and eye features to register the generic template. The expressions retarget to the digital avatars are obviously not good enough. [17] and [20] both use the PCA model and with some correctives, the expression details are more accurate than [6], while they still fail to capture some details beacuse the blendshapes are generated by transforming the neutral blendshape. Though [8] just uses ordinary cameras, it captures images of different poses of the user and builds blendshapes by mapping the corresponding 2D images to 3D face meshes, so the system can retain more details. The main drawback is it needs user-specific training and camera calibration. And intuitively speaking, mapping 2D information to 3D is inferior than directly using the RGB-D data. [9] is a big improvement to [8], which does not need any calibration. It only runs at 24fps, which remains a lot of things to do. All the 5 models above may fail if the face is partially occluded.<br>To improve the tracking accuracy especially when labeling landmarks, the current state-of-the-art face alignment [15] can be used, it has good accuracy and fast speed. And [21] proposes a combined hardware and software solution for markerless reconstruction of non-rigidly deforming physical objects with arbitrary shape in real-time. They adopt RGB-D data and a novel GPU based pipeline. I think using this GPU based approach can significantly improve the expression details reconstruction in the 3D facial Animation and speed up the computation. [22] proposes a method called PCPR handles the occlusion stuff. RCPR outperforms previous landmark estimation work on four different, varied face datasets. RCPR is more robust to bad initializations, large shape deformations and occlusion. Off course, other techs that will drive better performance can also be used in 3D facial Animation, let’s wait for new methods to come.<br>My current work is to use Intel RealSense (a device similar to Microsoft Kinect that has RGB-D data, but with less noise, and better accuracy for depth) to do face verification. For example, there are methods by scanning user’s face to unlock the door. But those approaches just use 2D information, if the user’s face is partially occluded (especially for women who have long hairs that occludes their faces), the verification process may fail, and it is hard to distinguish the twins because their faces are almost identical. We believe using 3D information will improve the performance because use the depth data we can obtain the true skeleton of the user’s face.</p>
+<h3 id="8-Available-Consumer-level-3D-Facial-Animation-Products"><a href="#8-Available-Consumer-level-3D-Facial-Animation-Products" class="headerlink" title="8. Available Consumer-level 3D Facial Animation Products"></a>8. Available Consumer-level 3D Facial Animation Products</h3><hr>
+<ul>
+<li>Face Plus:<br>Markerless Facial Capture and Facial Animation, in Real Time. With Face Plus, all you need to do is sit down in front of a webcam, act out the expressions you want to apply to your 3D character, and watch it happen in real time within your 3D game engine.</li>
+<li>Faceshift:<br>Faceshift first scans a set of expressions to train your personalized avatar for tracking. And then capture a performance with realtime feedback, and optionally improve the accuracy in a postprocessing stage. Last animate virtual avatars in faceshift and export the animation to your favorite 3D animation software, or connect to your existing animation pipeline.</li>
+<li>CubicMotion:<br>Similar to the above two.</li>
+</ul>
+<h3 id="9-References"><a href="#9-References" class="headerlink" title="9. References"></a>9. References</h3><hr>
+<p>[1]: HUANG, H., CHAI, J., TONG, X., AND WU, H. 2011. Leveraging motion capture and 3d scanning for high-fidelity facial performance acquisition. ACM Trans. Graph. 30, 74:1–74:10.<br>[2]: DENG, Z., CHIANG, P.-Y., FOX, P., AND NEUMANN, U. 2006. Animating blendshape faces by cross-mapping motion capture data. In I3D, 43–48.<br>[3]: BRADLEY, D., HEIDRICH, W., POPA, T., AND SHEFFER, A. 2010. High resolution passive facial performance capture. ACM Trans. Graph. 29, 41:1–41:10.<br>[4]: WEISE, T., LI, H., GOOL, L. V., AND PAULY, M. 2009. Face/off: Live facial puppetry. In SCA, 7–16.<br>[5]: ZHANG, L., SNAVELY, N., CURLESS, B., AND SEITZ, S. M. 2004. Spacetime faces: high resolution capture for modeling and animation. ACM Trans. Graph. 23, 548–558.<br>[6]: WEISE, T., BOUAZIZ, S., LI, H., AND PAULY, M. 2011. Realtime performance-based facial animation. ACM Trans. Graph. 30, 77:1–77:10.<br>[7]: CAO, C., WENG, Y., LIN, S., ZHOU, K. 2013. 3D shape regression for real-time facial animation. ACM Trans. Graph. 32,4(July), 41:1-41:10.<br>[8]: CAO, C., HOU, Q., ZHOU, K. 2014. Displaced dynamic expression for real-time facial tracking and Animation. ACM Trans. Graph.<br>[9]: EKMAN, P., AND FRIESEN, W. 1978. Facial Action Coding System: A Technique for the Measurement of Facial Movement. Consulting Psychologists Press.<br>[10]: CAO, C., WENG, Y., ZHOU, S., TONG, Y., AND ZHOU, K. 2013. Facewarehouse: a 3D facial expression database for visual computing. IEEE TVCG.<br>[11]: TAIGMAN, Y., YANG, M., RANZATO, M., WOLF, L. 2014. DeepFace: Closing the Gap to Human-Level Performance in Face Verification. In Computer Vision and Pattern Recognition (CVPR), 2014 IEEE Conference on.<br>[12]: COOTES, T., EDWARDS, G., TAYLOR, J. 2011. Active appearance models. Pattern Analysis and Machine Intelligence, IEEE Transactions on<br>[13]: ZHU, X., and RAMANAN, D. 2012. Face detection, pose estimation, and landmark localization in the wild. In Computer Vision and Pattern Recognition (CVPR), 2012 IEEE Conference on.<br>IEEE, 2012. 2, 5<br>[14]: BALTRUˇSAITIS, T., ROBINSON, P., AND MORENCY, L.-P. 2012. 3d constrained local model for rigid and non-rigid facial tracking. In CVPR, 2610–2617.<br>[15]: REN, S., CAO, X., WEI, Y., SUN, J. 2014. Face alignment at 3000fps via regression local binary features. In Computer Vision and Pattern Recognition (CVPR), 2014 IEEE Conference on.<br>[16]: BLANZ, V., AND VETTER, T. 1999. A morphable model for the synthesis of 3d faces. In Proc. SIGGRAPH, 187–194.<br>[17]: LI, H., YU, J., YE, Y., AND BREGLER, C. 2013. Realtime facial animation with on-the-fly correctives. ACM Trans. Graph. 32, 4 (July), 42:1–42:10.<br>[18]: LI, H., ADAMS, B., GUIBAS, L. J., AND PAULY, M. 2009. Robust single-view geometry and motion reconstruction. ACM Transactions on Graphics (Proceedings SIGGRAPH Asia 2009) 28, 5.<br>[19]: SUMNER, R. W., AND POPOVI´C , J. 2004. Deformation transfer for triangle meshes. ACM Trans. Graph. 23, 3 (Aug.), 399–405.<br>[20]: BOUAZIZ, S., WANG, Y., AND PAULY, M. 2013. Online modeling for realtime facial animation. ACM Trans. Graph. 32, 4 (July), 40:1–40:10.<br>[21]: ZOLLHOFER, M., NIEBNER, M. et al. 2014. Real-time Non-rgid reconstruction using an RGB-D camera. ACM Trans. Graph.<br>[22]: BURGOS-ARTIZZU, X., PERONA, P., and DOLLAR, P. 2013. Robust face landmark estimation under occlusion. ICCV</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <!-- 使用 DISQUS -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://freesouls.github.io/2015/04/16/3d-facial-animation/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://freesouls.github.io/2015/04/16/3d-facial-animation/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+<script type="text/ls-javascript" id="disqus-thread-script">
+    queue.offer(function() {
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document;
+                var s = d.createElement('script');
+                s.src = '//freesouls.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', + new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        });
+</script>
+
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2015/06/06/fix-hexo/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2014/12/30/using-MapReduce-running-wordcount/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/imgs/me.jpg" alt="Binbin Xu's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        declanxu@126.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/10/">十月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/06/">六月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/04/">四月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2014/12/">十二月 2014<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2014/11/">十一月 2014<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2014/03/">三月 2014<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="About">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                About
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/freesouls" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+        <a href="https://www.zhihu.com/people/xu-bin-bin" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-zhihu">
+                <span class="visuallyhidden">Zhihu</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Freesouls
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+   <!-- 使用 DISQUS js 代码 -->
+<script id="dsq-count-scr" src="//freesouls.disqus.com/count.js" async></script>
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+        </body>
+    
+</html>
